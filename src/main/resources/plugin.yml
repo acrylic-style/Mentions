@@ -1,0 +1,18 @@
+name: Mentions
+main: xyz.acrylicstyle.mentions.Mentions
+version: "1.0"
+depend:
+  - TomeitoLib
+permissions:
+  mentions.mention:
+    default: op
+    description: "Does allow user to mention users or not"
+  mentions.admin:
+    default: op
+    description: "does allow user to mention ops (@admin) or not"
+  mentions.helper:
+    default: op
+    description: "does allow user to mention helpers (@helper) or not"
+  mentions.everyone:
+    default: op
+    description: "Allows @everyone mention or not"
