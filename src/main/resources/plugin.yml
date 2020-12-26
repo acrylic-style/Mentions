@@ -10,9 +10,6 @@ permissions:
   mentions.admin:
     default: op
     description: "does allow user to mention ops (@admin) or not"
-  mentions.helper:
-    default: op
-    description: "does allow user to mention helpers (@helper) or not"
   mentions.everyone:
     default: op
     description: "Allows @everyone mention or not"

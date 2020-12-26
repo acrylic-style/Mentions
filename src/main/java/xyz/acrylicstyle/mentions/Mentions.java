@@ -9,6 +9,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 import util.ICollectionList;
+import xyz.acrylicstyle.tomeito_api.TomeitoAPI;
 import xyz.acrylicstyle.tomeito_api.sounds.Sound;
 
 public class Mentions extends JavaPlugin implements Listener {
@@ -23,16 +24,16 @@ public class Mentions extends JavaPlugin implements Listener {
             if (s.equals("@everyone")) { // @everyone, mentions everyone (aqua color)
                 if (!e.getPlayer().hasPermission("mentions.everyone")) return;
                 e.setMessage(e.getMessage().replaceAll("@everyone", "" + ChatColor.AQUA + ChatColor.UNDERLINE + ChatColor.BOLD + "@everyone" + ChatColor.RESET + ChatColor.WHITE));
-                Bukkit.getOnlinePlayers().forEach(p -> p.playSound(p.getLocation(), Sound.BLOCK_NOTE_PLING, 100, 1));
+                TomeitoAPI.run(() -> TomeitoAPI.broadcastSound(Sound.BLOCK_NOTE_PLING, 1));
             } else if (s.equals("@admin")) { // @admin, mentions OPs (yellow color)
                 if (!e.getPlayer().hasPermission("mentions.admin")) return;
                 e.setMessage(e.getMessage().replaceAll("@admin", ChatColor.GOLD + "@admin" + ChatColor.RESET + ChatColor.WHITE));
-                Bukkit.getOnlinePlayers().parallelStream().filter(Player::isOp).forEach(p -> {
+                TomeitoAPI.run(() -> TomeitoAPI.getOnlinePlayers().filter(Player::isOp).forEach(p -> {
                     e.getRecipients().remove(p);
                     String message = String.format(e.getFormat(), e.getPlayer().getName(), e.getMessage()).replaceAll("@admin", "" + ChatColor.GOLD + ChatColor.UNDERLINE + ChatColor.BOLD + "@admin" + ChatColor.RESET + ChatColor.WHITE);
                     p.sendMessage(message);
                     p.playSound(p.getLocation(), Sound.BLOCK_NOTE_PLING, 100, 1);
-                });
+                }));
             } else if (s.startsWith("@")) { // @player (aqua color)
                 if (!e.getPlayer().hasPermission("mentions.mention")) return;
                 String p1 = s.replaceFirst("@", "");
