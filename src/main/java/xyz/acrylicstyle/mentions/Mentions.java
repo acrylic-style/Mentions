@@ -18,7 +18,7 @@ public class Mentions extends JavaPlugin implements Listener {
         Bukkit.getPluginManager().registerEvents(this, this);
     }
 
-    @EventHandler(priority = EventPriority.MONITOR)
+    @EventHandler(priority = EventPriority.LOW)
     public void onAsyncPlayerChat(AsyncPlayerChatEvent e) {
         ICollectionList.asList(e.getMessage().split("\\s+")).forEach(s -> {
             if (s.equals("@everyone")) { // @everyone, mentions everyone (aqua color)
